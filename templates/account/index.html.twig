@@ -8,6 +8,9 @@
 Bienvenue {{app.user.firstname}} dans votre compte.<br>
 C'est dans cet espae que vous allez pouvoir gérer toutes vos informations personnelles
 <hr>
+{% if is_granted ('ROLE_ADMIN') %}
+<a href="/admin">Vous êtes un administrateur ? Accéder au backoffice </a><br>
+{% endif %}
 <a href="{{ path ('account_password')}}">Modifier mon mot de passe </a><br>
 <a href="{{ path ('account_adress')}}">Gérer mes adresses</a><br>
 <a href="{{ path ('account_order')}}">Mes Commandes</a>

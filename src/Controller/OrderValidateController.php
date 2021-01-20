@@ -24,15 +24,15 @@ class OrderValidateController extends AbstractController
      */
     public function index(Cart $cart, $stripeSessionId): Response
     {
-        $order = $this->entityManager->getRepository(Order::Class)->findOneByStripeSessionId($stripeSessionId);
+        $order = $this->entityManager->getRepository(Order::class)->findOneByStripeSessionId($stripeSessionId);
 
         if(!$order || $order->getUser() != $this->getUser()){
             return $this->redirectToRoute('home');
         }
 
-        if (!$order->getIsPaid()){
+        if (!$order->getState() == 0){
             $cart->remove();
-            $order->setIsPaid(1);
+            $order->setState(1);
             $this->entityManager->flush();
         }
 
